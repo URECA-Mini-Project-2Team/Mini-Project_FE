@@ -4,13 +4,6 @@ import './App.css';
 function App() {
   const [seats, setSeats] = useState([]);
   const [columns, setColumns] = useState(8); // 열을 8로 설정
-  const [reservationData, setReservationData] = useState({
-    userName: '',
-    nickName: '',
-    password: '',
-    seatNo: null,
-  });
-  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchSeats();
@@ -114,11 +107,10 @@ function App() {
                   throw new Error(errorData.message || '서버 에러가 발생했습니다.');
                 });
               }
-              return response.text(); // 여기서 JSON이 아니라 텍스트로 응답을 처리합니다.
+              return response.text(); 
             })
             .then((responseText) => {
               if (responseText) {
-                // 응답이 빈 텍스트가 아닐 경우에만 JSON으로 파싱
                 try {
                   const data = JSON.parse(responseText);
                   console.log('Success:', data);
@@ -142,7 +134,7 @@ function App() {
 
   const handleCancelSeat = () => {
     const cancelWindow = window.open('', '_blank', 'width=400,height=300');
-
+  
     cancelWindow.document.write(`
       <html>
         <head>
@@ -184,21 +176,22 @@ function App() {
         </body>
       </html>
     `);
-
+  
     cancelWindow.document.getElementById('cancelBtn').onclick = function () {
       const nickName = cancelWindow.document.getElementById('nickName').value;
       const password = cancelWindow.document.getElementById('password').value;
-
+  
       const newErrors = {};
       if (!nickName) newErrors.nickName = '닉네임을 입력해 주세요.';
       if (!password) newErrors.password = '비밀번호를 입력해 주세요.';
-
+  
       if (Object.keys(newErrors).length > 0) {
         cancelWindow.document.getElementById('nickNameError').textContent = newErrors.nickName || '';
         cancelWindow.document.getElementById('passwordError').textContent = newErrors.password || '';
       } else {
-        // eslint-disable-next-line no-restricted-globals
-        if (confirm('정말로 예약을 취소하시겠습니까?')) {
+        // 사용자 확인 대화상자 표시
+        const isConfirmed = cancelWindow.confirm('정말로 예약을 취소하시겠습니까?');
+        if (isConfirmed) {
           fetch('http://localhost:8080/ureca/delete', {
             method: 'PATCH',
             headers: {
@@ -212,7 +205,7 @@ function App() {
                   throw new Error(errorData.message || '서버 에러가 발생했습니다.');
                 });
               }
-              return response.text(); // 여기서 JSON이 아니라 텍스트로 응답을 처리합니다.
+              return response.text();
             })
             .then((responseText) => {
               if (responseText) {
@@ -223,7 +216,7 @@ function App() {
                   console.warn('Failed to parse response as JSON:', error);
                 }
               }
-
+  
               cancelWindow.alert('좌석이 성공적으로 취소되었습니다.');
               fetchSeats(); // 좌석 정보 새로고침
               cancelWindow.close(); // 창 닫기
@@ -272,7 +265,7 @@ function App() {
           ))}
         </div>
       </div>
-      <button className="cancel-seat-button" onClick={handleCancelSeat}>자리 취소</button> {/* 자리 취소 버튼에 onClick 핸들러 추가 */}
+      <button className="cancel-seat-button" onClick={handleCancelSeat}>자리 취소</button>
     </div>
   );
 }
