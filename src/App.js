@@ -28,7 +28,7 @@ function App() {
 
   const handleSeatClick = (seat) => {
     if (seat.status) {
-      alert(`예약된 좌석입니다.\n닉네임: ${seat.nickName}\n사용자 이름: ${seat.userName}`);
+      alert(`예약된 좌석입니다.\n아이디 : ${seat.nickName}\n사용자 이름 : ${seat.userName}`);
     } else {
       const newWindow = window.open('', '_blank', 'width=600,height=400');
   
@@ -58,17 +58,17 @@ function App() {
             <h2>좌석 예약</h2>
             <form id="reservationForm">
               <div>
-                <label>이름: </label>
+                <label>이름 : </label>
                 <input type="text" name="userName" id="userName" />
                 <span id="userNameError" class="error"></span>
               </div>
               <div>
-                <label>닉네임: </label>
+                <label>아이디 : </label>
                 <input type="text" name="nickName" id="nickName" />
                 <span id="nickNameError" class="error"></span>
               </div>
               <div>
-                <label>비밀번호: </label>
+                <label>비밀번호 : </label>
                 <input type="password" name="password" id="password" />
                 <span id="passwordError" class="error"></span>
               </div>
@@ -86,7 +86,7 @@ function App() {
   
         const newErrors = {};
         if (!userName) newErrors.userName = '이름을 입력해 주세요.';
-        if (!nickName) newErrors.nickName = '닉네임을 입력해 주세요.';
+        if (!nickName) newErrors.nickName = '아이디을 입력해 주세요.';
         if (!password) newErrors.password = '비밀번호를 입력해 주세요.';
   
         if (Object.keys(newErrors).length > 0) {
@@ -161,12 +161,12 @@ function App() {
           <h2>자리 예약 취소</h2>
           <form id="cancelForm">
             <div>
-              <label>닉네임: </label>
+              <label>아이디 : </label>
               <input type="text" name="nickName" id="nickName" />
               <span id="nickNameError" class="error"></span>
             </div>
             <div>
-              <label>비밀번호: </label>
+              <label>비밀번호 : </label>
               <input type="password" name="password" id="password" />
               <span id="passwordError" class="error"></span>
             </div>
@@ -182,7 +182,7 @@ function App() {
       const password = cancelWindow.document.getElementById('password').value;
   
       const newErrors = {};
-      if (!nickName) newErrors.nickName = '닉네임을 입력해 주세요.';
+      if (!nickName) newErrors.nickName = '아이디을 입력해 주세요.';
       if (!password) newErrors.password = '비밀번호를 입력해 주세요.';
   
       if (Object.keys(newErrors).length > 0) {
