@@ -240,7 +240,7 @@ function App() {
   return (
     <div className="App">
       <div className="fixed-header">
-        <h1>가스라이팅</h1>
+        <h1>백엔드 자리 현황</h1>
         <div className="column-input">
           <label>가로 길이: </label>
           <input
