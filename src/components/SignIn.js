@@ -21,8 +21,7 @@ function SignIn() {
         }
       })
       .then((data) => {
-        if (data.token && data.nickName) {
-          localStorage.setItem('userNickName', data.nickName);
+        if (data.token) {
           localStorage.setItem('token', data.token);
           setMessage('로그인 성공');
         } else {
